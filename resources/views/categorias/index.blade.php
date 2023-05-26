@@ -1,7 +1,7 @@
 @extends('layouts.plantilla')
 
 @section('title')
-    <h1>PRODUCTOS</h1>
+    <h1>CATEGORIAS</h1>
 @endsection
 
 
