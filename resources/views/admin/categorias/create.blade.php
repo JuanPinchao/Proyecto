@@ -18,7 +18,7 @@
       <input type="text" class="form-control" id="descripcion" name="descripcion" required >
     </div>
     <div class="mt-5">
-        <button type="submit" class="btn btn-success mr -4 ">GUARDAR</button>
+        <button type="submit" class="btn btn-success mr-2">GUARDAR</button>
         <a href="{{route('categorias.index')}}" class="btn btn-danger">CANCELAR</a>
     </div>
 

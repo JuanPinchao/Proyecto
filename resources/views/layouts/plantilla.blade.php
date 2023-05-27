@@ -38,7 +38,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
+        <a href="{{ route('home') }}" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
@@ -229,21 +229,21 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('productos.index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Productos</p>
-                </a>
-              </li>
-              <li class="nav-item">
                 <a href="{{ route('categorias.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Categorias</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('proveedores.index') }}" class="nav-link">
+                <a href="{{ route('subcategorias.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Proveedores</p>
+                  <p>Subcategorias</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('productos.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Productos</p>
                 </a>
               </li>
             </ul>

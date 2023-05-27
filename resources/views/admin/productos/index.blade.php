@@ -12,10 +12,10 @@
 <table class="table">
       <thead>
         <tr>
-          <th scope="col">ID</th>
           <th scope="col">NOMBRE</th>
           <th scope="col">CANTIDAD</th>
           <th scope="col">PRECIO</th>
+          <th scope="col">CATEGORIA</th>
           <th scope="col">ACCIONES</th>
         </tr>
       </thead>
@@ -23,10 +23,10 @@
 
         @foreach ($productos as $producto)
         <tr>
-          <td>{{$producto->id}}</td>
           <td>{{$producto->nombre}}</td>
           <td>{{$producto->cantidad}}</td>
           <td>{{$producto->precio}}</td>
+          <td>{{$producto->cnombre}}</td>
           <td>
             <form action="{{route('productos.destroy', $producto->id)}}" method="POST">
               @csrf

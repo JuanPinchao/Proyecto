@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Producto;
+use App\Models\Categoria;
+use App\Models\Subcategoria;
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\RunningLaravelDuskInProductionProvider;
 
 class ProductoController extends Controller
@@ -13,8 +15,10 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $productos = Producto::all();
-        return view(('productos.index'),compact('productos'));
+        $productos = Producto::select('c.nombre as cnombre','productos.*')
+                                ->join('categorias as c','productos.categorias_id','c.id')
+                                ->where('productos.estado',1)->get();
+        return view(('admin.productos.index'),compact('productos'));
     }
 
     /**
@@ -22,7 +26,8 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        return view('productos.create');
+        $categorias = Categoria::where('estado',1)->get();
+        return view('admin.productos.create',compact('categorias'));
     }
 
     /**
@@ -34,6 +39,8 @@ class ProductoController extends Controller
         $productos->nombre = $request->input('nombre');
         $productos->cantidad = $request->input('cantidad');
         $productos->precio = $request->input('precio');
+        $productos->categorias_id = $request->input('categoria');
+        $productos->estado = 1;
         $productos->save();
 
         return redirect(route('productos.index'));
@@ -53,8 +60,9 @@ class ProductoController extends Controller
      */
     public function edit(string $id)
     {
+        $categorias = Categoria::where('estado',1)->get();
         $producto = Producto::find($id);
-        return view(('productos.edit'),compact('producto'));
+        return view(('admin.productos.edit'),compact('producto','categorias'));
     }
 
     /**
@@ -66,6 +74,7 @@ class ProductoController extends Controller
         $producto->nombre = $request->input('nombre');
         $producto->cantidad = $request->input('cantidad');
         $producto->precio = $request->input('precio');
+        $producto->categorias_id = $request->input('categoria');
         $producto->save();
 
         return redirect(route('productos.index'));
@@ -77,7 +86,8 @@ class ProductoController extends Controller
     public function destroy(string $id)
     {
         $producto = Producto::find($id);
-        $producto->delete();
+        $producto->estado = 0;
+        $producto->save();
         return redirect(route('productos.index'));
     }
 }

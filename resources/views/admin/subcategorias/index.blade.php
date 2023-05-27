@@ -1,18 +1,18 @@
 @extends('layouts.plantilla')
 
 @section('title')
-    <h1>CATEGORIAS</h1>
+    <h1>SUBCATEGORIAS</h1>
 @endsection
 
 
 @section('content')
 
-<a href="{{route('categorias.create')}}" class="btn btn-success mb-4">CREAR</a>
+<a href="{{route('subcategorias.create')}}" class="btn btn-success mb-4">CREAR</a>
 
 <table class="table">
       <thead>
         <tr>
-          <th scope="col">ID</th>
+          <th scope="col">CATEGORIA</th>
           <th scope="col">NOMBRE</th>
           <th scope="col">DESCRIPCION</th>
           <th scope="col">ACCIONES</th>
@@ -20,16 +20,16 @@
       </thead>
       <tbody>
 
-        @foreach ($categorias as $categoria)
+        @foreach ($subcategorias as $subcategoria)
         <tr>
-          <td>{{$categoria->id}}</td>
-          <td>{{$categoria->nombre}}</td>
-          <td>{{$categoria->descripcion}}</td>
+          <td>{{$subcategoria->cnombre}}</td>
+          <td>{{$subcategoria->nombre}}</td>
+          <td>{{$subcategoria->descripcion}}</td>
           <td>
-            <form action="{{route('categorias.destroy', $categoria->id)}}" method="POST">
+            <form action="{{route('subcategorias.destroy', $subcategoria->id)}}" method="POST">
               @csrf
               @method('DELETE')
-            <a href="{{route('categorias.edit',$categoria->id)}}" class="btn btn-primary btn-sm mr-3">EDITAR</a>
+            <a href="{{route('subcategorias.edit',$subcategoria->id)}}" class="btn btn-primary btn-sm mr-3">EDITAR</a>
             <button type="submit" class="btn btn-danger btn-sm">ELIMINAR</button>
             </form>
           </td>
@@ -42,12 +42,3 @@
     
 
 @endsection
-
-
-
-
-
-
-
-
-

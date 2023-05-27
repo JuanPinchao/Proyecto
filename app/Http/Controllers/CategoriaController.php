@@ -12,8 +12,8 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        $categorias = Categoria::all();
-        return view(('categorias.index'),compact('categorias'));
+        $categorias = Categoria::where('estado',1)->get();
+        return view(('admin.categorias.index'),compact('categorias'));
     }
 
     /**
@@ -21,7 +21,7 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        return view('categorias.create');
+        return view('admin.categorias.create');
     }
 
     /**
@@ -32,6 +32,7 @@ class CategoriaController extends Controller
         $categorias = new Categoria();
         $categorias->nombre = $request->input('nombre');
         $categorias->descripcion = $request->input('descripcion');
+        $categorias->estado = 1;
         $categorias->save();
 
         return redirect(route('categorias.index'));
@@ -52,7 +53,7 @@ class CategoriaController extends Controller
     public function edit(string $id)
     {
         $categoria = Categoria::find($id);
-        return view(('categorias.edit'),compact('categoria'));
+        return view(('admin.categorias.edit'),compact('categoria'));
     }
 
     /**
@@ -74,7 +75,8 @@ class CategoriaController extends Controller
     public function destroy(string $id)
     {
         $categoria = Categoria::find($id);
-        $categoria->delete();
+        $categoria->estado = 0;
+        $categoria->save();
         return redirect(route('categorias.index'));
     }
 }
