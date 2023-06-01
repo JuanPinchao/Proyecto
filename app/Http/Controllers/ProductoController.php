@@ -15,8 +15,9 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $productos = Producto::select('c.nombre as cnombre','productos.*')
+        $productos = Producto::select('c.nombre as cnombre','sub.nombre as subnombre','productos.*')
                                 ->join('categorias as c','productos.categorias_id','c.id')
+                                ->join('subcategorias as sub','productos.subcategorias_id','sub.id')
                                 ->where('productos.estado',1)->get();
         return view(('admin.productos.index'),compact('productos'));
     }
@@ -26,8 +27,11 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        $categorias = Categoria::where('estado',1)->get();
-        return view('admin.productos.create',compact('categorias'));
+
+        $categorias = Categoria::where('categorias.estado',1)->get();
+        $subcategorias = Subcategoria::where('subcategorias.estado',1)->get();
+
+        return view('admin.productos.create',compact('categorias','subcategorias'));
     }
 
     /**
@@ -40,6 +44,7 @@ class ProductoController extends Controller
         $productos->cantidad = $request->input('cantidad');
         $productos->precio = $request->input('precio');
         $productos->categorias_id = $request->input('categoria');
+        $productos->subcategorias_id = $request->input('subcategoria');
         $productos->estado = 1;
         $productos->save();
 
@@ -60,9 +65,10 @@ class ProductoController extends Controller
      */
     public function edit(string $id)
     {
-        $categorias = Categoria::where('estado',1)->get();
+        $categorias = Categoria::where('categorias.estado',1)->get();
+        $subcategorias = Subcategoria::where('subcategorias.estado',1)->get();
         $producto = Producto::find($id);
-        return view(('admin.productos.edit'),compact('producto','categorias'));
+        return view(('admin.productos.edit'),compact('producto','categorias','subcategorias'));
     }
 
     /**
@@ -75,6 +81,7 @@ class ProductoController extends Controller
         $producto->cantidad = $request->input('cantidad');
         $producto->precio = $request->input('precio');
         $producto->categorias_id = $request->input('categoria');
+        $producto->subcategorias_id = $request->input('subcategoria');
         $producto->save();
 
         return redirect(route('productos.index'));

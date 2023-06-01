@@ -16,6 +16,7 @@
           <th scope="col">CANTIDAD</th>
           <th scope="col">PRECIO</th>
           <th scope="col">CATEGORIA</th>
+          <th scope="col">SUBCATEGORIA</th>
           <th scope="col">ACCIONES</th>
         </tr>
       </thead>
@@ -27,6 +28,7 @@
           <td>{{$producto->cantidad}}</td>
           <td>{{$producto->precio}}</td>
           <td>{{$producto->cnombre}}</td>
+          <td>{{$producto->subnombre}}</td>
           <td>
             <form action="{{route('productos.destroy', $producto->id)}}" method="POST">
               @csrf
