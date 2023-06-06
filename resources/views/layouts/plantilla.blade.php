@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Dashboard 2</title>
+  <title>AdminLTE </title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -14,7 +14,7 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('css/adminlte.min.css')}}">
 
-  @vite(['resources/js/app.js'])
+ 
 
   
 </head>
@@ -39,9 +39,6 @@
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{{ route('home') }}" class="nav-link">Home</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
       </li>
     </ul>
 
@@ -223,30 +220,51 @@
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Dashboard
+                Dashboard 
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
+              <li class="nav-item">           
+                <a href="{{ route('home') }}" class="nav-link">                   
+                <i class="far fa-circle nav-icon"></i>
+                <p>Home</p>
+              </a>       
+            </li>
+              @can('users.index')
+              <li class="nav-item">           
+                  <a href="{{ route('users.index') }}" class="nav-link">                   
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Usuarios</p>
+                </a>       
+              </li>
+              @endcan
+              @can('categorias.index')
               <li class="nav-item">
                 <a href="{{ route('categorias.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Categorias</p>
                 </a>
               </li>
+              @endcan
+              @can('subcategorias.index')
               <li class="nav-item">
                 <a href="{{ route('subcategorias.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Subcategorias</p>
                 </a>
               </li>
+              @endcan
+              @can('productos.index')
               <li class="nav-item">
                 <a href="{{ route('productos.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Productos</p>
                 </a>
               </li>
+              @endcan
             </ul>
+            
           </li>
       </nav>
       <!-- /.sidebar-menu -->
@@ -306,7 +324,10 @@
 <script src="{{asset('js/usa_states.min.js')}}"></script>
 <!-- ChartJS -->
 <script src="{{asset('js/Chart.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@vite(['resources/js/app.js'])
 
+@yield('js')
 <!-- AdminLTE for demo purposes -->
 
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->

@@ -24,4 +24,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('productos',App\Http\Controllers\ProductoController::class)->names('productos');
 Route::resource('categorias',App\Http\Controllers\CategoriaController::class)->names('categorias');
 Route::resource('subcategorias',App\Http\Controllers\SubcategoriasController::class)->names('subcategorias');
-
+Route::resource('users',App\Http\Controllers\UserController::class)->only(['index','edit','update'])->names('users');

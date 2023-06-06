@@ -14,6 +14,7 @@ class Producto extends Model
         'precio',
         'cantidad',
         'categorias_id',
+        'subcategorias_id',
         'estado'
     ];
 

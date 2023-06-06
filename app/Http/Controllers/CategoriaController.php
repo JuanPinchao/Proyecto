@@ -77,6 +77,7 @@ class CategoriaController extends Controller
         $categoria = Categoria::find($id);
         $categoria->estado = 0;
         $categoria->save();
-        return redirect(route('categorias.index'));
+        $respuesta = "";
+        return redirect(route('categorias.index',compact('respuesta')));
     }
 }

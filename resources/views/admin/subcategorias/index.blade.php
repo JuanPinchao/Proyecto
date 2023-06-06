@@ -16,6 +16,7 @@
           <th scope="col">NOMBRE</th>
           <th scope="col">DESCRIPCION</th>
           <th scope="col">ACCIONES</th>
+
         </tr>
       </thead>
       <tbody>
@@ -26,11 +27,12 @@
           <td>{{$subcategoria->nombre}}</td>
           <td>{{$subcategoria->descripcion}}</td>
           <td>
-            <form action="{{route('subcategorias.destroy', $subcategoria->id)}}" method="POST">
+            <form  class="d-inline" action="{{route('subcategorias.destroy', $subcategoria->id)}}" method="POST">
               @csrf
               @method('DELETE')
-            <a href="{{route('subcategorias.edit',$subcategoria->id)}}" class="btn btn-primary btn-sm mr-3">EDITAR</a>
-            <button type="submit" class="btn btn-danger btn-sm">ELIMINAR</button>
+            <a href="{{route('subcategorias.edit',$subcategoria->id)}}" class="btn btn-primary btn-sm">EDITAR</a>
+            <button type="submit" class="btn btn-danger btn-sm mt-2">ELIMINAR</button>
+          
             </form>
           </td>
         </tr>
