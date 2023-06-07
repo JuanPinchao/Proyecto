@@ -84,6 +84,6 @@ class SubcategoriasController extends Controller
         $subcategoria->estado = 0;
         $subcategoria->save();
 
-        return redirect(route('subcategorias.index'));
+        return $respuesta = "ok";
     }
 }

@@ -95,6 +95,6 @@ class ProductoController extends Controller
         $producto = Producto::find($id);
         $producto->estado = 0;
         $producto->save();
-        return redirect(route('productos.index'));
+        return $respuesta = "ok";
     }
 }

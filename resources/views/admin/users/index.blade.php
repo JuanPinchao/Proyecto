@@ -7,7 +7,9 @@
 
 @section('content')
 
-<table class="table">
+<div class="card">
+  <div class="card-body">
+<table class="table table-dark table-striped" id="Table">
       <thead>
         <tr>
             <th scope="col">ROL</th>
@@ -31,7 +33,15 @@
         
       </tbody>
     </table>
-  
+</div>
+</div>
     
+@endsection
 
+@section('js')
+<script>
+  $(document).ready( function () {
+    $('#Table').DataTable();
+  } );
+</script>
 @endsection

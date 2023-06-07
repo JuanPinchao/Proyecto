@@ -7,9 +7,11 @@
 
 @section('content')
 
-<a href="{{route('categorias.create')}}" class="btn btn-success mb-4">CREAR</a>
+<a href="{{route('categorias.create')}}" class="btn btn-success mb-4" >CREAR</a>
 
-<table class="table">
+<div class="card">
+<div class="card-body">
+<table class="table table-dark table-striped" id="Table" >
       <thead>
         <tr>
           <th scope="col">NOMBRE</th>
@@ -33,15 +35,20 @@
         
       </tbody>
     </table>
-
+  </div>
+</div>
 @endsection
 
 
 @section('js')
     <script>
 
-      $('.eliminar').click(function(){
-      
+      $('.eliminar').click(function() {
+
+        tabla = $('#Table').DataTable();
+        fila = $(this);
+
+
         Swal.fire({
           title: 'Estas seguro?',
           text: "Esta accion no se puede deshacer",
@@ -53,37 +60,42 @@
         }).then((result) => {
             if (result.isConfirmed) {
 
-                let id = $(this).closest('td').find('input[type=hidden]').val();
+              let id = $(this).closest('td').find('input[type=hidden]').val();
+      
 
-                $.ajax({
+              $.ajax({
                     type: 'DELETE',
-                    url: '{{route('categorias.destroy',':id')}}'.replace(':id',id),
-                    data:{
-                      _token: '{{csrf_token()}}'
+                    url: "{{ route('categorias.destroy', ':id') }}".replace(':id', id),
+                    data: {
+                        _token: '{{ csrf_token() }}'
                     },
-                success: function(respuesta){
-                    Swal.fire(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
-                    )
-                },
-                error: function(respuesta){
-                    console.log(respuesta)
-                }
-
+                    success: function(respuesta) {    
+                        Swal.fire(
+                            'Éxito',
+                            'Cambios efectuados correctamente',
+                            'success'
+                        )
+                        tabla.row(fila.parents('tr')).remove().draw();
+                        
+                    },
+                    error: function(respuesta) {
+                        Swal.fire(
+                            'Error',
+                            'Error desconocido',
+                            'error'
+                        )
+                    }
                 });
-
             }
-          })
-      
-      
-      })
-  
+        })
+      });
   </script>
 
-
-
+  <script>
+    $(document).ready( function () {
+      $('#Table').DataTable();
+    } );
+  </script>
 
 
 @endsection

@@ -9,7 +9,9 @@
 
 <a href="{{route('productos.create')}}" class="btn btn-success mb-4">CREAR</a>
 
-<table class="table">
+<div class="card">
+  <div class="card-body">
+<table class="table table-dark table-striped" id="Table">
       <thead>
         <tr>
           <th scope="col">NOMBRE</th>
@@ -30,12 +32,9 @@
           <td>{{$producto->cnombre}}</td>
           <td>{{$producto->subnombre}}</td>
           <td>
-            <form action="{{route('productos.destroy', $producto->id)}}" method="POST">
-              @csrf
-              @method('DELETE')
             <a href="{{route('productos.edit',$producto->id)}}" class="btn btn-primary btn-sm mr-3">EDITAR</a>
-            <button type="submit" class="btn btn-danger btn-sm">ELIMINAR</button>
-            </form>
+            <input type="hidden" value="{{$producto->id}}">
+            <span class="btn btn-danger btn-sm eliminar">ELIMINAR</span>
           </td>
         </tr>
         @endforeach
@@ -43,11 +42,70 @@
       </tbody>
     </table>
   
-    
+  </div>
+</div>
 
 @endsection
 
+@section('js')
+    <script>
 
+      $('.eliminar').click(function() {
+
+        tabla = $('#Table').DataTable();
+        fila = $(this);
+
+
+        Swal.fire({
+          title: 'Estas seguro?',
+          text: "Esta accion no se puede deshacer",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Si, borrar!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+              let id = $(this).closest('td').find('input[type=hidden]').val();
+      
+
+              $.ajax({
+                    type: 'DELETE',
+                    url: "{{ route('productos.destroy', ':id') }}".replace(':id', id),
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(respuesta) {    
+                        Swal.fire(
+                            'Éxito',
+                            'Cambios efectuados correctamente',
+                            'success'
+                        )
+                        tabla.row(fila.parents('tr')).remove().draw();
+                        
+                    },
+                    error: function(respuesta) {
+                        Swal.fire(
+                            'Error',
+                            'Error desconocido',
+                            'error'
+                        )
+                    }
+                });
+            }
+        })
+      });
+  </script>
+
+  <script>
+    $(document).ready( function () {
+      $('#Table').DataTable();
+    } );
+  </script>
+
+
+@endsection
 
 
 

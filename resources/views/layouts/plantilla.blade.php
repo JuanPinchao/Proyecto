@@ -14,9 +14,8 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('css/adminlte.min.css')}}">
 
- 
+  <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 
-  
 </head>
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
   
@@ -324,13 +323,17 @@
 <script src="{{asset('js/usa_states.min.js')}}"></script>
 <!-- ChartJS -->
 <script src="{{asset('js/Chart.min.js')}}"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 @vite(['resources/js/app.js'])
 
-@yield('js')
+
 <!-- AdminLTE for demo purposes -->
 
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset('js/dashboard2.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+@yield('js')
 </body>
 </html>
