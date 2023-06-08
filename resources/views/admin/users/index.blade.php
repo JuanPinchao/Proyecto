@@ -15,7 +15,7 @@
             <th scope="col">ROL</th>
             <th scope="col">NOMBRE</th>
             <th scope="col">CORREO</th>
-            <th scope="col"></th>
+            <th scope="col">ACCIONES</th>
         </tr>
       </thead>
       <tbody>
@@ -26,7 +26,7 @@
             <td>{{$user->name}}</td>
             <td>{{$user->email}}</td>
           <td>
-            <a href="{{route('users.edit',$user->id)}}" class="btn btn-primary btn-sm mr-3">EDITAR</a>
+            <a href="{{route('users.edit',$user->id)}}" class="btn btn-primary btn-sm mr-3">CAMBIAR ROL</a>
           </td>
         </tr>
         @endforeach

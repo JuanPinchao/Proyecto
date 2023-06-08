@@ -20,17 +20,17 @@ class RoleSeeder extends Seeder
 
         Permission::create(['name'=>'home'])->syncRoles([$role1, $role2]);
 
-        Permission::create(['name'=>'productos.index'])->syncRoles([$role1]);
+        Permission::create(['name'=>'productos.index'])->syncRoles([$role1, $role2]);
         Permission::create(['name'=>'productos.create'])->syncRoles([$role1]);
         Permission::create(['name'=>'productos.edit'])->syncRoles([$role1]);
         Permission::create(['name'=>'productos.destroy'])->syncRoles([$role1]);
 
-        Permission::create(['name'=>'categorias.index'])->syncRoles([$role1]);
+        Permission::create(['name'=>'categorias.index'])->syncRoles([$role1, $role2]);
         Permission::create(['name'=>'categorias.create'])->syncRoles([$role1]);
         Permission::create(['name'=>'categorias.edit'])->syncRoles([$role1]);
         Permission::create(['name'=>'categorias.destroy'])->syncRoles([$role1]);
 
-        Permission::create(['name'=>'subcategorias.index'])->syncRoles([$role1]);
+        Permission::create(['name'=>'subcategorias.index'])->syncRoles([$role1,$role2]);
         Permission::create(['name'=>'subcategorias.create'])->syncRoles([$role1]);
         Permission::create(['name'=>'subcategorias.edit'])->syncRoles([$role1]);
         Permission::create(['name'=>'subcategorias.destroy'])->syncRoles([$role1]);

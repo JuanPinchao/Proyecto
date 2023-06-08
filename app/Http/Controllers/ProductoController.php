@@ -10,9 +10,15 @@ use Spatie\LaravelIgnition\Solutions\SolutionProviders\RunningLaravelDuskInProdu
 
 class ProductoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
+    public function __construct()
+    {
+        $this->middleware('can:productos.index')->only('index');
+        $this->middleware('can:productos.create')->only('create','store');
+        $this->middleware('can:productos.edit')->only('edit','update');
+        $this->middleware('can:productos.destroy')->only('destroy');
+    }
+
     public function index()
     {
         $productos = Producto::select('c.nombre as cnombre','sub.nombre as subnombre','productos.*')
@@ -22,9 +28,6 @@ class ProductoController extends Controller
         return view(('admin.productos.index'),compact('productos'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
 
@@ -34,9 +37,6 @@ class ProductoController extends Controller
         return view('admin.productos.create',compact('categorias','subcategorias'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $productos = new Producto();
@@ -52,17 +52,6 @@ class ProductoController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $categorias = Categoria::where('categorias.estado',1)->get();
@@ -71,9 +60,6 @@ class ProductoController extends Controller
         return view(('admin.productos.edit'),compact('producto','categorias','subcategorias'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $producto = Producto::find($id);
@@ -86,10 +72,7 @@ class ProductoController extends Controller
 
         return redirect(route('productos.index'));
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
+    
     public function destroy(string $id)
     {
         $producto = Producto::find($id);

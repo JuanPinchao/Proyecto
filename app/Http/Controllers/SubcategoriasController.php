@@ -8,9 +8,15 @@ use App\Models\Subcategoria;
 
 class SubcategoriasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
+    public function __construct()
+    {
+        $this->middleware('can:subcategorias.index')->only('index');
+        $this->middleware('can:subcategorias.create')->only('create','store');
+        $this->middleware('can:subcategorias.edit')->only('edit','update');
+        $this->middleware('can:subcategorias.destroy')->only('destroy');
+    }
+
     public function index()
     {
         $subcategorias = Subcategoria::select('c.nombre as cnombre','subcategorias.*')
@@ -19,18 +25,12 @@ class SubcategoriasController extends Controller
         return view(('admin.subcategorias.index'),compact('subcategorias'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $categorias = Categoria::where('estado',1)->get();
         return view('admin.subcategorias.create',compact('categorias'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $subcategorias = new Subcategoria();
@@ -43,17 +43,6 @@ class SubcategoriasController extends Controller
         return redirect(route('subcategorias.index'));
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $categorias = Categoria::where('estado',1)->get();
@@ -61,9 +50,6 @@ class SubcategoriasController extends Controller
         return view(('admin.subcategorias.edit'),compact('subcategoria','categorias'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $subcategoria = Subcategoria::find($id);
@@ -75,9 +61,6 @@ class SubcategoriasController extends Controller
         return redirect(route('subcategorias.index'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $subcategoria = Subcategoria::find($id);

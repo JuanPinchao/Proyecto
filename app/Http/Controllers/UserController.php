@@ -8,9 +8,12 @@ use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
+    public function __construct()
+    {
+        $this->middleware('can:users.index');
+    }
+
     public function index()
     {
         $users = User::select('roles.name as roles','users.*')
@@ -19,10 +22,7 @@ class UserController extends Controller
                     ->get();
         return view('admin.users.index',compact('users'));
     }
-    
-    /**
-     * Show the form for editing the specified resource.
-     */
+  
     public function edit(string $id)
     {
         $roles = Role::all();
@@ -30,9 +30,6 @@ class UserController extends Controller
         return view('admin.users.edit',compact('user','roles'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $user = User::find($id);

@@ -7,7 +7,9 @@
 
 @section('content')
 
-<a href="{{route('productos.create')}}" class="btn btn-success mb-4">CREAR</a>
+@can('productos.create')
+  <a href="{{route('productos.create')}}" class="btn btn-success mb-4">CREAR</a>
+@endcan
 
 <div class="card">
   <div class="card-body">
@@ -32,9 +34,13 @@
           <td>{{$producto->cnombre}}</td>
           <td>{{$producto->subnombre}}</td>
           <td>
-            <a href="{{route('productos.edit',$producto->id)}}" class="btn btn-primary btn-sm mr-3">EDITAR</a>
-            <input type="hidden" value="{{$producto->id}}">
-            <span class="btn btn-danger btn-sm eliminar">ELIMINAR</span>
+            @can('productos.edit')
+              <a href="{{route('productos.edit',$producto->id)}}" class="btn btn-primary btn-sm mr-3">EDITAR</a>
+            @endcan
+            @can('productos.destroy')
+              <input type="hidden" value="{{$producto->id}}">
+              <span class="btn btn-danger btn-sm eliminar">ELIMINAR</span>
+            @endcan
           </td>
         </tr>
         @endforeach

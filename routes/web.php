@@ -21,7 +21,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('productos',App\Http\Controllers\ProductoController::class)->names('productos');
-Route::resource('categorias',App\Http\Controllers\CategoriaController::class)->names('categorias');
-Route::resource('subcategorias',App\Http\Controllers\SubcategoriasController::class)->names('subcategorias');
+Route::resource('productos',App\Http\Controllers\ProductoController::class)->except('show')->names('productos');
+Route::resource('categorias',App\Http\Controllers\CategoriaController::class)->except('show')->names('categorias');
+Route::resource('subcategorias',App\Http\Controllers\SubcategoriasController::class)->except('show')->names('subcategorias');
 Route::resource('users',App\Http\Controllers\UserController::class)->only(['index','edit','update'])->names('users');

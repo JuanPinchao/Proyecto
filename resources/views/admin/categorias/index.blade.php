@@ -7,7 +7,10 @@
 
 @section('content')
 
-<a href="{{route('categorias.create')}}" class="btn btn-success mb-4" >CREAR</a>
+@can('categorias.create')
+  <a href="{{route('categorias.create')}}" class="btn btn-success mb-4" >CREAR</a>
+@endcan
+
 
 <div class="card">
 <div class="card-body">
@@ -26,9 +29,13 @@
           <td>{{$categoria->nombre}}</td>
           <td>{{$categoria->descripcion}}</td>
           <td>
-            <a href="{{route('categorias.edit',$categoria->id)}}" class="btn btn-primary btn-sm mr-3" >EDITAR</a>
-            <input type="hidden" value="{{$categoria->id}}">
-            <span class="btn btn-danger btn-sm eliminar">ELIMINAR</span>
+            @can('categorias.edit')
+              <a href="{{route('categorias.edit',$categoria->id)}}" class="btn btn-primary btn-sm mr-3" >EDITAR</a>
+            @endcan
+            @can('categorias.destroy')
+              <input type="hidden" value="{{$categoria->id}}">
+              <span class="btn btn-danger btn-sm eliminar">ELIMINAR</span>
+            @endcan
           </td>
         </tr>
         @endforeach

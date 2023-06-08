@@ -215,8 +215,29 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
+
+          @can('users.index')
+          <li class="nav-item  {{request()->is('users*') ?' menu-open' : ''}}">
+                <a href="#" class="nav-link {{request()->is('users*') ?' active' : ''}}">
+                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <p>
+                    ADMIN 
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">           
+                      <a href="{{ route('users.index') }}" class="nav-link {{request()->is('users*') ?' active' : ''}}">                   
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Usuarios</p>
+                    </a>       
+                  </li>
+                </ul>
+          </li>
+          @endcan
+              
+          <li class="nav-item {{request()->is(['home*','categorias*','subcategorias*','productos*']) ?' menu-open' : ''}}">
+            <a href="#" class="nav-link {{request()->is(['home*','categorias*','subcategorias*','productos*']) ?' active' : ''}}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard 
@@ -225,22 +246,14 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">           
-                <a href="{{ route('home') }}" class="nav-link">                   
+                <a href="{{ route('home') }}" class="nav-link {{request()->is('home*') ?' active' : ''}}">                   
                 <i class="far fa-circle nav-icon"></i>
                 <p>Home</p>
               </a>       
             </li>
-              @can('users.index')
-              <li class="nav-item">           
-                  <a href="{{ route('users.index') }}" class="nav-link">                   
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Usuarios</p>
-                </a>       
-              </li>
-              @endcan
               @can('categorias.index')
               <li class="nav-item">
-                <a href="{{ route('categorias.index') }}" class="nav-link">
+                <a href="{{ route('categorias.index') }}" class="nav-link {{request()->is('categorias*') ?' active' : ''}}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Categorias</p>
                 </a>
@@ -248,7 +261,7 @@
               @endcan
               @can('subcategorias.index')
               <li class="nav-item">
-                <a href="{{ route('subcategorias.index') }}" class="nav-link">
+                <a href="{{ route('subcategorias.index') }}" class="nav-link {{request()->is('subcategorias*') ?' active' : ''}}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Subcategorias</p>
                 </a>
@@ -256,7 +269,7 @@
               @endcan
               @can('productos.index')
               <li class="nav-item">
-                <a href="{{ route('productos.index') }}" class="nav-link">
+                <a href="{{ route('productos.index') }}" class="nav-link {{request()->is('productos*') ?' active' : ''}}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Productos</p>
                 </a>

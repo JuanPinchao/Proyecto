@@ -7,26 +7,26 @@ use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
+    public function __construct()
+    {
+        $this->middleware('can:categorias.index')->only('index');
+        $this->middleware('can:categorias.create')->only('create','store');
+        $this->middleware('can:categorias.edit')->only('edit','update');
+        $this->middleware('can:categorias.destroy')->only('destroy');
+    }
+    
     public function index()
     {
         $categorias = Categoria::where('estado',1)->get();
         return view(('admin.categorias.index'),compact('categorias'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('admin.categorias.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $categorias = new Categoria();
@@ -39,26 +39,12 @@ class CategoriaController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $categoria = Categoria::find($id);
         return view(('admin.categorias.edit'),compact('categoria'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $categoria = Categoria::find($id);
@@ -69,9 +55,6 @@ class CategoriaController extends Controller
         return redirect(route('categorias.index'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $categoria = Categoria::find($id);
