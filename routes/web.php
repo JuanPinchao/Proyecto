@@ -25,3 +25,4 @@ Route::resource('productos',App\Http\Controllers\ProductoController::class)->exc
 Route::resource('categorias',App\Http\Controllers\CategoriaController::class)->except('show')->names('categorias');
 Route::resource('subcategorias',App\Http\Controllers\SubcategoriasController::class)->except('show')->names('subcategorias');
 Route::resource('users',App\Http\Controllers\UserController::class)->only(['index','edit','update'])->names('users');
+
