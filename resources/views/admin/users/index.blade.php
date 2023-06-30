@@ -6,42 +6,34 @@
 
 
 @section('content')
+    <div class="card">
+        <div class="card-body">
+            <div class="row justify-content-center">
+                @foreach ($users as $user)
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="user-card text-center">
+                                    <img src="{{ $user->file }}" class="rounded-circle user-photo" alt="{{ $user->name }}">
+                                    <h4 class="user-name mt-3">{{ $user->name }}</h4>
+                                    <a href="{{ route('users.edit', $user->id) }}"
+                                        class="btn btn-primary btn-sm mt-2">CAMBIAR ROL</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
 
-<div class="card">
-  <div class="card-body">
-<table class="table table-dark table-striped" id="Table">
-      <thead>
-        <tr>
-            <th scope="col">ROL</th>
-            <th scope="col">NOMBRE</th>
-            <th scope="col">CORREO</th>
-            <th scope="col">ACCIONES</th>
-        </tr>
-      </thead>
-      <tbody>
-
-        @foreach ($users as $user)
-        <tr>
-            <td>{{$user->roles}}</td>
-            <td>{{$user->name}}</td>
-            <td>{{$user->email}}</td>
-          <td>
-            <a href="{{route('users.edit',$user->id)}}" class="btn btn-primary btn-sm mr-3">CAMBIAR ROL</a>
-          </td>
-        </tr>
-        @endforeach
-        
-      </tbody>
-    </table>
-</div>
-</div>
-    
+            </div>
+        </div>
+    </div>
 @endsection
 
-@section('js')
-<script>
-  $(document).ready( function () {
-    $('#Table').DataTable();
-  } );
-</script>
-@endsection
+
+<style>
+    .user-photo {
+        width: 150px;
+        height: 160px;
+        object-fit: cover;
+    }
+</style>

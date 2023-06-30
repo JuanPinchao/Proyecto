@@ -39,12 +39,18 @@ class ProductoController extends Controller
 
     public function store(Request $request)
     {
+
+        $name = $request['file']->getClientOriginalName();
+        $destino = "img";
+        $filename = $request['file']->move($destino, $name);
+
         $productos = new Producto();
         $productos->nombre = $request->input('nombre');
         $productos->cantidad = $request->input('cantidad');
         $productos->precio = $request->input('precio');
         $productos->categorias_id = $request->input('categoria');
         $productos->subcategorias_id = $request->input('subcategoria');
+        $productos->file = $filename;
         $productos->estado = 1;
         $productos->save();
 
@@ -62,12 +68,21 @@ class ProductoController extends Controller
 
     public function update(Request $request, string $id)
     {
+        
         $producto = Producto::find($id);
         $producto->nombre = $request->input('nombre');
         $producto->cantidad = $request->input('cantidad');
         $producto->precio = $request->input('precio');
         $producto->categorias_id = $request->input('categoria');
         $producto->subcategorias_id = $request->input('subcategoria');
+
+        if ($request->hasFile('file')) {
+            $name = $request->file('file')->getClientOriginalName();
+            $destino = "img";
+            $filename = $request->file('file')->move($destino, $name);
+            $producto->file = $filename;
+        }
+
         $producto->save();
 
         return redirect(route('productos.index'));

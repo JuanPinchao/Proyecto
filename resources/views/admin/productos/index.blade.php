@@ -12,42 +12,31 @@
 
     <div class="card">
         <div class="card-body">
-            <table class="table table-dark table-striped" id="Table">
-                <thead>
-                    <tr>
-                        <th scope="col">NOMBRE</th>
-                        <th scope="col">CANTIDAD</th>
-                        <th scope="col">PRECIO</th>
-                        <th scope="col">CATEGORIA</th>
-                        <th scope="col">SUBCATEGORIA</th>
-                        <th scope="col">ACCIONES</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    @foreach ($productos as $producto)
-                        <tr>
-                            <td>{{ $producto->nombre }}</td>
-                            <td>{{ $producto->cantidad }}</td>
-                            <td>{{ $producto->precio }}</td>
-                            <td>{{ $producto->cnombre }}</td>
-                            <td>{{ $producto->subnombre }}</td>
-                            <td>
+            <div class="container">
+                <div class="row">
+                    @foreach($productos as $producto)
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <div class="card-body"><img src="{{ $producto->file }}" class="card-img-top" alt="{{ $producto->nombre }}" width="100px" height="200px"></div>
+                            <div class="card-body">
+                                <h4 class="card-title">{{ $producto->nombre }}</h4>
+                                <p class="card-text">{{ $producto->descripcion }}</p>
+                                <p class="card-price">${{ $producto->precio }}</p>
+                                <p class="card-price">categoria: {{ $producto->cnombre }}</p>
+                                <p class="card-price">subcategoria: {{ $producto->subnombre }}</p>
                                 @can('productos.edit')
-                                    <a href="{{ route('productos.edit', $producto->id) }}"
-                                        class="btn btn-primary btn-sm mr-3">EDITAR</a>
-                                @endcan
-                                @can('productos.destroy')
-                                    <input type="hidden" value="{{ $producto->id }}">
-                                    <span class="btn btn-danger btn-sm eliminar">ELIMINAR</span>
-                                @endcan
-                            </td>
-                        </tr>
+                                <a href="{{ route('productos.edit', $producto->id) }}"
+                                    class="btn btn-primary btn-sm mr-3">EDITAR</a>
+                            @endcan
+                            @can('productos.destroy')
+                                <span class="btn btn-danger btn-sm eliminar" data-id="{{$producto->id}}">ELIMINAR</span>
+                            @endcan
+                            </div>
+                        </div>
+                    </div>
                     @endforeach
-
-                </tbody>
-            </table>
-
+                </div>
+            </div>
         </div>
     </div>
 @endsection
@@ -56,9 +45,7 @@
     <script>
         $('.eliminar').click(function() {
 
-            tabla = $('#Table').DataTable();
-            fila = $(this);
-
+            var id = $(this).data('id');
 
             Swal.fire({
                 title: 'Estas seguro?',
@@ -70,10 +57,6 @@
                 confirmButtonText: 'Si, borrar!'
             }).then((result) => {
                 if (result.isConfirmed) {
-
-                    let id = $(this).closest('td').find('input[type=hidden]').val();
-
-
                     $.ajax({
                         type: 'DELETE',
                         url: "{{ route('productos.destroy', ':id') }}".replace(':id', id),
@@ -85,26 +68,21 @@
                                 'Éxito',
                                 'Cambios efectuados correctamente',
                                 'success'
-                            )
-                            tabla.row(fila.parents('tr')).remove().draw();
-
+                            );
+                            $(`.eliminar[data-id=${id}]`).closest('.col-md-4').remove();
+                            
                         },
                         error: function(respuesta) {
                             Swal.fire(
                                 'Error',
                                 'Error desconocido',
                                 'error'
-                            )
+                            );
                         }
                     });
                 }
-            })
+            });
         });
     </script>
 
-    <script>
-        $(document).ready(function() {
-            $('#Table').DataTable();
-        });
-    </script>
 @endsection

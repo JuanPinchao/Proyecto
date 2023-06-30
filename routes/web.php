@@ -14,7 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
+});
+Route::get('/shop', function () {
+    return view('shop');
 });
 
 Auth::routes();
@@ -25,4 +28,5 @@ Route::resource('productos',App\Http\Controllers\ProductoController::class)->exc
 Route::resource('categorias',App\Http\Controllers\CategoriaController::class)->except('show')->names('categorias');
 Route::resource('subcategorias',App\Http\Controllers\SubcategoriasController::class)->except('show')->names('subcategorias');
 Route::resource('users',App\Http\Controllers\UserController::class)->only(['index','edit','update'])->names('users');
+Route::resource('profile',App\Http\Controllers\ProfileController::class)->names('profile');
 
