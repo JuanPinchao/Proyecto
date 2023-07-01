@@ -16,6 +16,7 @@
             <table class="table table-dark table-striped" id="Table">
                 <thead>
                     <tr>
+                        <th scope="col"></th>
                         <th scope="col">NOMBRE</th>
                         <th scope="col">DESCRIPCION</th>
                         <th scope="col">ACCIONES</th>
@@ -25,6 +26,7 @@
 
                     @foreach ($categorias as $categoria)
                         <tr>
+                            <td><img src="{{ ($categoria->file) }}" class="card-img-top" alt="{{ $categoria->nombre }}" height="80px"></td>
                             <td>{{ $categoria->nombre }}</td>
                             <td>{{ $categoria->descripcion }}</td>
                             <td>

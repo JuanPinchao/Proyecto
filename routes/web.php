@@ -13,14 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
-Route::get('/shop', function () {
-    return view('shop');
-});
-
 Auth::routes();
+
+Route::resource('/',App\Http\Controllers\IndexController::class)->only(['index','show'])->names('index');
+Route::get('show/{id}', [App\Http\Controllers\IndexController::class, 'show'])->name('index.show');
+
+Route::resource('/shop',App\Http\Controllers\ShopController::class)->only(['index','show'])->names('shop');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

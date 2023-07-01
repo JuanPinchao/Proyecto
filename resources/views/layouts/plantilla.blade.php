@@ -149,6 +149,9 @@
     <script src="{{ asset('js/raphael.min.js') }}"></script>
     <script src="{{ asset('js/jquery.mapael.min.js') }}"></script>
     <script src="{{ asset('js/usa_states.min.js') }}"></script>
+
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+    
     <!-- ChartJS -->
     <script src="{{ asset('js/Chart.min.js') }}"></script>
 
@@ -162,6 +165,7 @@
     <script src="{{ asset('js/dashboard2.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    
     @yield('js')
 </body>
 

@@ -17,11 +17,8 @@
                 <input type="text" class="form-control" id="nombre" name="nombre" required  value="{{$subcategoria->nombre}}">
             </div>
 
-            <div class="mb-3 mt-3">
-                <label for="" class="form-label">DESCRIPCION</label>
-                <input type="text" class="form-control" id="descripcion" name="descripcion" required  value="{{$subcategoria->descripcion}}">
-            </div>
-
+            <label for="nombre" class="form-label">DESCRIPCION</label>
+            <textarea class="form-control" id="descripcion" name="descripcion" required rows="4" cols="50">{{$subcategoria->descripcion}}</textarea>
             <div class="mb-3 mt-3">
                 <label for="" class="form-label">CATEGORIA</label>
                 <select class="form-control" name="categoria">

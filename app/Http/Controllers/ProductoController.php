@@ -51,6 +51,7 @@ class ProductoController extends Controller
         $productos->categorias_id = $request->input('categoria');
         $productos->subcategorias_id = $request->input('subcategoria');
         $productos->file = $filename;
+        $productos->descripcion = $request->input('descripcion');
         $productos->estado = 1;
         $productos->save();
 
@@ -75,6 +76,7 @@ class ProductoController extends Controller
         $producto->precio = $request->input('precio');
         $producto->categorias_id = $request->input('categoria');
         $producto->subcategorias_id = $request->input('subcategoria');
+        $producto->descripcion = $request->input('descripcion');
 
         if ($request->hasFile('file')) {
             $name = $request->file('file')->getClientOriginalName();

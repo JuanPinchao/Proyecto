@@ -16,4 +16,8 @@ class Categoria extends Model
         'estado',
     ];
 
+    public function subcategorias()
+    {
+        return $this->hasMany(Subcategoria::class, 'categorias_id');
+    }
 }

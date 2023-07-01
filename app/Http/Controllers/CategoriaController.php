@@ -29,10 +29,16 @@ class CategoriaController extends Controller
 
     public function store(Request $request)
     {
+
+        $name = $request['file']->getClientOriginalName();
+        $destino = "img";
+        $filename = $request['file']->move($destino, $name);
+
         $categorias = new Categoria();
         $categorias->nombre = $request->input('nombre');
         $categorias->descripcion = $request->input('descripcion');
         $categorias->estado = 1;
+        $categorias->file = $filename;
         $categorias->save();
 
         return redirect(route('categorias.index'));
@@ -50,6 +56,14 @@ class CategoriaController extends Controller
         $categoria = Categoria::find($id);
         $categoria->nombre = $request->input('nombre');
         $categoria->descripcion = $request->input('descripcion');
+
+        if ($request->hasFile('file')) {
+            $name = $request->file('file')->getClientOriginalName();
+            $destino = "img";
+            $filename = $request->file('file')->move($destino, $name);
+            $categoria->file = $filename;
+        }
+
         $categoria->save();
 
         return redirect(route('categorias.index'));
