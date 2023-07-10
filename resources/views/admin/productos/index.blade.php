@@ -19,11 +19,12 @@
                         <div class="card mb-4">
                             <div class="card-body"><img src="{{ $producto->file }}" class="card-img-top" alt="{{ $producto->nombre }}" width="100px" height="200px"></div>
                             <div class="card-body">
-                                <h4 class="card-title "><b>{{ $producto->nombre }}</b></h4>
+                                <h4 class="card-title"><b>{{ $producto->nombre }}</b></h4>
                                 <p class="card-text mt-5">{{ $producto->descripcion }}</p>
                                 <p class="card-price">Precio: ${{ $producto->precio }}</p>
-                                <p class="card-price">categoria: {{ $producto->cnombre }}</p>
-                                <p class="card-price">subcategoria: {{ $producto->subnombre }}</p>
+                                <p class="card-price">Cantidad: {{ $producto->cantidad }}</p>
+                                <p class="card-category">Categoria: {{ $producto->cnombre }}</p>
+                                <p class="card-subcategory">Subcategoria: {{ $producto->subnombre }}</p>
                                 @can('productos.edit')
                                 <a href="{{ route('productos.edit', $producto->id) }}"
                                     class="btn btn-primary btn-sm mr-3">EDITAR</a>

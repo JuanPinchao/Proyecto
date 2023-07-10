@@ -16,13 +16,13 @@ class IndexController extends Controller
         $productos = Producto::orderBy('created_at', 'desc')->take(3)->where('estado','1')->get();
         $categorias = Categoria::select('categorias.*')->whereIn('nombre', ['accesorios', 'relojes', 'zapatos'])->where('estado','1')->get();
         $productos2 = Producto::orderBy('precio', 'desc')->take(3)->where('estado','1')->get();
-        return view('eccomerce.index',compact('productos','categorias','productos2'));
+        return view('ecommerce.index',compact('productos','categorias','productos2'));
     }
 
     public function show(string $id)
     {
         $producto = Producto::find($id);
-        return view('eccomerce.show', compact('producto'));
+        return view('ecommerce.show', compact('producto'));
     }
     
 }

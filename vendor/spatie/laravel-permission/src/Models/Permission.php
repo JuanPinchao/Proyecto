@@ -20,7 +20,7 @@ use Spatie\Permission\Traits\RefreshesPermissionCache;
  * @property ?\Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
  */
-class Permission extends Model implements PermissionContract 
+class Permission extends Model implements PermissionContract
 {
     use HasRoles;
     use RefreshesPermissionCache;

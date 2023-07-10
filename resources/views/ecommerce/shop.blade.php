@@ -4,35 +4,45 @@
         <!-- Start Content -->
         <div class="container py-5">
             <div class="row">
-
                 <div class="col-lg-3">
                     <h1 class="h2 pb-4">Categorias</h1>
+                    <h1 class="h2 pb-4">
+                      <a class="h3 text-decoration-none" href="{{ route('shop.index') }}" style="color: inherit;">all</a>
+                    </h1>
                     @foreach ($categorias as $categoria) 
-                    <ul class="list-unstyled templatemo-accordion">
+                      <ul class="list-unstyled templatemo-accordion">
                         <li class="pb-3">
-                            <a class="collapsed d-flex justify-content-between h3 text-decoration-none">
-                                {{$categoria->nombre}}
-                                <i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
+                          <div class="d-flex justify-content-between align-items-center">
+                            <a class="collapsed h3 text-decoration-none" href="{{ route('shop.showCategoria', $categoria->id) }}">
+                              {{$categoria->nombre}}
                             </a>
-                            <ul class="collapse show list-unstyled pl-3">
-                                @foreach ($categoria->subcategorias as $subcategoria)
-                                <li><a class="text-decoration-none" href="{{route('shop.show',$subcategoria->id)}}">{{$subcategoria->nombre}}</a></li>
-                                @endforeach
-                            </ul>
+                            <i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
+                          </div>
+                          <ul class="collapse show list-unstyled pl-3">
+                            @foreach ($categoria->subcategorias as $subcategoria)
+                              <li><a class="text-decoration-none" href="{{ route('shop.showSubcategoria', $subcategoria->id) }}">{{$subcategoria->nombre}}</a></li>
+                            @endforeach
+                          </ul>
                         </li>
-                    </ul>
+                      </ul>
                     @endforeach
-                </div>
+                  </div>
     
                 <div class="col-lg-9">
                     <div class="row">
+
+                        <h1 class="pb-4">{{ $title->nombre }}</h1>
+                        <p  class="pb-4">{{ $title->descripcion }}</p>
+
                         @foreach ($productos as $producto)
                                
                         <div class="col-md-4">
                             <div class="card mb-4 product-wap rounded-0">
-                                <div class="card rounded-0">
-                                    <a href="{{ route('index.show',$producto->id) }}"><img class="card-img rounded-0 img-fluid" src="{{asset($producto->file)}}" style="width: 300px; height: 280px;"> 
+                                <div class="card rounded-0"> 
+                                    <a href="{{ route('index.show',$producto->id) }}">
+                                        <img class="card-img rounded-0 img-fluid image-overlay" src="{{ asset($producto->file) }}" style="width: 300px; height: 280px;">
                                     </a>
+                                    
                                 </div>
                                 <div class="card-body">
                                     <a class="h3 text-decoration-none">{{$producto->nombre}}</a>

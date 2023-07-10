@@ -46,7 +46,7 @@
                 <img src="{{$categoria->file}}" class="rounded-circle img-fluid border" style="width: 300px; height: 300px;">
                 <h5 class="text-center mt-3 mb-3">{{$categoria->nombre}}</h5>
                 <p>{{$categoria->descripcion}}</p>
-                <p class="text-center"><a href="{{route('shop.index')}}" class="btn btn-success">Go Shop</a></p>
+                <p class="text-center"><a href="{{route('shop.showCategoria',$categoria->id)}}" class="btn btn-success">Go Shop</a></p>
             </div>
             @endforeach
         </div>

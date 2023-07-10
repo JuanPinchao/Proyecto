@@ -2,74 +2,46 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Categoria;
 use App\Models\Producto;
 use App\Models\Subcategoria;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-
 
 class ShopController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
+        $title = (object) [
+            'nombre' => 'Todos los productos',
+            'descripcion' => 'Aquí encontrarás todos nuestros productos en un solo lugar. 
+            Navega a través de nuestra amplia selección y descubre lo que tenemos para ofrecerte. 
+            Desde ropa de moda hasta dispositivos electrónicos de última generación, 
+            ¡lo tenemos todo! Explora nuestras categorías y encuentra exactamente lo que estás buscando. 
+            No esperes más, ¡comienza a explorar y encuentra tus productos favoritos ahora mismo!',
+        ];
         $categorias = Categoria::with('subcategorias')->where('estado','1')->get();
         $productos = Producto::select('productos.*')->where('estado','1')->get();
-        return view('eccomerce.shop',compact('categorias','productos'));
+        return view('ecommerce.shop',compact('categorias','productos','title'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function showSubcategoria(string $id)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
+        $title = Subcategoria::find($id);
         $productos = Producto::select('productos.*')
                             ->where('estado','1')
                             ->where('subcategorias_id',$id)->get();
         $categorias = Categoria::with('subcategorias')->where('estado','1')->get();
-        return view('eccomerce.shop',compact('categorias','productos'));
+        return view('ecommerce.shop',compact('categorias','productos','title'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+    public function showCategoria(string $id){
+        $title = Categoria::find($id);
+        $productos = Producto::select('productos.*')
+                            ->where('estado','1')
+                            ->where('categorias_id',$id)->get();
+        $categorias = Categoria::with('subcategorias')->where('estado','1')->get();
+        return view('ecommerce.shop',compact('categorias','productos','title'));
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }
